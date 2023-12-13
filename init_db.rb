@@ -36,4 +36,11 @@ books.insert(
 )
 
 
-puts "all books #{DB[:books].map(:title , :author , :genre , "published_year" )}"
+puts "all books #{
+  DB[:books].map(
+    :title , 
+    :author , 
+    :genre , 
+    "published_year" 
+  )
+}"
