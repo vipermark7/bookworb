@@ -35,7 +35,6 @@ books.insert(
   published_year: 2005
 )
 
-
 puts "all books #{
   DB[:books].map(
     :title , 

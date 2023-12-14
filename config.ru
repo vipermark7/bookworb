@@ -1,40 +1,23 @@
 require 'sequel'
 
-$DB = Sequel.sqlite('../bookworb.db')
+$DB = Sequel.sqlite('bookworb.db')
 
-books = $DB[:books] 
+$books = $DB[:books].all
 
 # cat config.ru
 require "roda"
 
 class App < Roda
+  plugin :json
   route do |r|
-    # GET / request
-    r.root do
-      r.redirect "/hello"
+    r.root do 
+      r.redirect "books"
     end
-
-    # /hello branch
-    r.on "hello" do
-      # Set variable for all routes in /hello branch
-      @greeting = 'howdy'
-
-      # GET /hello/world request
-      r.get "world" do
-        "#{@greeting} world!"
-      end
-
-      # /hello request
+    r.on "books" do 
       r.is do
-        # GET /hello request
+        # GET /books
         r.get do
-          "#{@greeting}!"
-        end
-
-        # POST /hello request
-        r.post do
-          puts "Someone said #{@greeting}!"
-          r.redirect
+          $books
         end
       end
     end
